@@ -1,0 +1,15 @@
+# Exclude files not needed in Docker image
+target/
+.git/
+.gitignore
+README.md
+*.md
+.mvn/wrapper/maven-wrapper.jar
+.settings/
+.project
+.classpath
+.idea/
+*.iml
+*.iws
+.DS_Store
+Thumbs.db
