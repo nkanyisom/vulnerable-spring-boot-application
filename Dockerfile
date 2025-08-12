@@ -16,8 +16,8 @@ COPY src src
 # Build the application
 RUN mvn clean package -DskipTests
 
-# Use OpenJDK 8 runtime for the final image
-FROM openjdk:8-jre-alpine
+# Use Eclipse Temurin (more secure and maintained)
+FROM eclipse-temurin:8-jre
 
 # Set working directory
 WORKDIR /app
@@ -29,4 +29,4 @@ COPY --from=build /app/target/provider-search-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8081
 
 # Run the application with Heroku port configuration
-CMD java -Dserver.port=$PORT -jar app.jar
+CMD java -Dserver.port=$PORT -Djava.security.egd=file:/dev/./urandom -jar app.jar
