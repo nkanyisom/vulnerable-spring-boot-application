@@ -1,5 +1,5 @@
 # Use Maven with OpenJDK 8 as the base image for building
-FROM maven:3.6.3-openjdk-8-alpine AS build
+FROM maven:3.6-openjdk-8 AS build
 
 # Set working directory
 WORKDIR /app
