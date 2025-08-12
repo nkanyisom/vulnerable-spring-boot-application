@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS PUBLIC.PROVIDERS;
 
 CREATE TABLE PUBLIC.PROVIDERS (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id INTEGER NOT NULL AUTO_INCREMENT,
     first_name varchar(100) DEFAULT NULL,
     last_name varchar(100) DEFAULT NULL,
     phone varchar(20),
