@@ -14,7 +14,7 @@ RUN mvn dependency:go-offline -B
 COPY src src
 
 # Build the application
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -Dmaven.test.skip=true
 
 # Use Eclipse Temurin 11 (more secure and maintained)
 FROM eclipse-temurin:11-jre
