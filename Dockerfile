@@ -10,8 +10,8 @@ COPY pom.xml .
 # Download dependencies (this layer will be cached unless pom.xml changes)
 RUN mvn dependency:go-offline -B
 
-# Copy source code
-COPY src src
+# Copy source code (only main, exclude tests)
+COPY src/main src/main
 
 # Build the application without compiling tests
 RUN mvn clean package -Dmaven.test.skip=true -Dmaven.test.compile.skip=true -U
