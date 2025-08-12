@@ -22,6 +22,11 @@ FROM eclipse-temurin:11-jre
 # Set working directory
 WORKDIR /app
 
+# Create entrypoint script
+RUN echo '#!/bin/sh' > /app/entrypoint.sh && \
+    echo 'exec java -Dserver.port=$PORT -Djava.security.egd=file:/dev/./urandom --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED --add-opens java.base/sun.security.util=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED -jar app.jar' >> /app/entrypoint.sh && \
+    chmod +x /app/entrypoint.sh
+
 # Copy the built JAR from the build stage
 COPY --from=build /app/target/provider-search-0.0.1-SNAPSHOT.jar app.jar
 
@@ -29,11 +34,4 @@ COPY --from=build /app/target/provider-search-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8081
 
 # Run the application with Heroku port configuration and module access
-CMD java -Dserver.port=$PORT \
-    -Djava.security.egd=file:/dev/./urandom \
-    --add-opens java.base/java.lang=ALL-UNNAMED \
-    --add-opens java.base/java.lang.reflect=ALL-UNNAMED \
-    --add-opens java.base/java.security=ALL-UNNAMED \
-    --add-opens java.base/java.util.concurrent=ALL-UNNAMED \
-    --add-opens java.base/java.lang.invoke=ALL-UNNAMED \
-    -jar app.jar
+CMD ["/app/entrypoint.sh"]
